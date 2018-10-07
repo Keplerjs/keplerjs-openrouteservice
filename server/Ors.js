@@ -6,6 +6,8 @@
 //PATCH for https://github.com/GIScience/openrouteservice-js/issues/4
 var baseDir = 'openrouteservice-js/src/';
 
+//TODO Npm.require(baseDir+'main-template');
+//
 Kepler.Ors = {
 	Util: Npm.require(baseDir+'OrsUtil'),
 	Pois: Npm.require(baseDir+'OrsPois'),
