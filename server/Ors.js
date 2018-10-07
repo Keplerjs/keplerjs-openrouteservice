@@ -1,27 +1,43 @@
 
-var Future = Npm.require('fibers/future');
-	//,Openrouteservicejs = Npm.require('openrouteservice-js');
+//var Future = Npm.require('fibers/future');
+//require = Npm.require;
+//Openrouteservicejs = Npm.require('openrouteservice-js');
 
 //PATCH for https://github.com/GIScience/openrouteservice-js/issues/4
-const orsDir = '.npm/package/node_modules/openrouteservice-js/src/';
-const OrsPois = Npm.require(orsDir+'OrsPois');
-/*const OrsUtil = Npm.require(orsDir+'OrsUtil');
-const OrsInput = Npm.require(orsDir+'OrsInput');
-const OrsMatrix = Npm.require(orsDir+'OrsMatrix');
-const OrsGeocoding = Npm.require(orsDir+'OrsGeocode');
-const OrsIsochrones = Npm.require(orsDir+'OrsIsochrones');
-const OrsDirections = Npm.require(orsDir+'OrsDirections');
-*/
+var baseDir = 'openrouteservice-js/src/';
+
 Kepler.Ors = {
-    "Pois": OrsPois,
-/*    "Util": OrsUtil,
-    "Input": OrsInput,
-    "Geocode": OrsGeocode,
-    "Isochrones": OrsIsochrones,
-    "Directions": OrsDirections,
-    "Matrix": OrsMatrix
-*/
+	Util: Npm.require(baseDir+'OrsUtil'),
+	Pois: Npm.require(baseDir+'OrsPois'),
+	Input: Npm.require(baseDir+'OrsInput'),
+	//Matrix: Npm.require(baseDir+'OrsMatrix'),
+	Geocoding: Npm.require(baseDir+'OrsGeocode'),
+	Isochrones: Npm.require(baseDir+'OrsIsochrones'),
+	Directions: Npm.require(baseDir+'OrsDirections'),
 };
 
+/*
+console.log('openrouteservice', K.Ors);
+Meteor.startup(function() {
 
-console.log('ORS',K.Ors)
+	const Directions = new K.Ors.Directions({
+	  api_key: K.settings.openrouteservice.key
+	});
+
+	Directions.calculate({
+	  coordinates: [[8.690958, 49.404662], [8.687868, 49.390139]],
+	  profile: "driving-car",
+	  extra_info: ["waytype", "steepness"],
+	  geometry_format: "encodedpolyline",
+	  format: "json",
+	  mime_type: "application/json"
+	})
+	.then(function(json) {
+	  console.log(JSON.stringify(json,false,' ',4));
+	})
+	.catch(function(err) {
+	  var str = "An error occured: " + err;
+	  console.log(str);
+	});
+
+});*/

@@ -12,7 +12,7 @@ Npm.depends({
 Package.onUse(function (api) {
 
   var globsync = function(e){
-    var pkg = 'keplerjs_openrouteservice',
+    var pkg = 'keplerjs-openrouteservice',
         path = Npm.require('path'),
         glob = Npm.require('glob');
     return glob.sync(e, {cwd: path.join(process.cwd(),'packages',pkg) });
@@ -20,12 +20,8 @@ Package.onUse(function (api) {
 
   api.versionsFrom("1.5.1");
 
-
-  //PATCH for https://github.com/GIScience/openrouteservice-js/issues/4
-  api.addFiles(globsync('.npm/package/node_modules/openrouteservice-js/src/*.js'),'server');
-
   api.use([
-    'keplerjs:core',
+    'keplerjs:core@1.3.0',
     //'keplerjs:edit'
   ]);
 
