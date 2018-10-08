@@ -27,10 +27,13 @@ Package.onUse(function (api) {
 
   api.addFiles([
     'plugin.js',
+    'i18n/en.js'
   ]);
 
   api.addFiles([
     'client/Ors.js',
+    'client/views/popups.html',
+    'client/views/popups.js'
   ],'client');
 
   api.addFiles([
