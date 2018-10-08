@@ -28,9 +28,11 @@ Kepler.Ors = {
 
 		var future = new Future();
 
+		//DOCS https://jsapi.apiary.io/apis/openrouteservice/reference/directions/directions/directions-service.html
 		K.Ors.directions.calculate({
 			coordinates: locs,
-			profile: "driving-car",
+			profile: "foot-walking",
+			//driving-car , driving-hgv , cycling-regular , cycling-road , cycling-safe , cycling-mountain , cycling-tour , cycling-electric , foot-walking , foot-hiking , wheelchair
 			//extra_info: ["waytype", "steepness"],
 			//geometry_format: "encodedpolyline",
 			geometry_format: 'geojson',
@@ -38,8 +40,6 @@ Kepler.Ors = {
 			mime_type: "application/json"
 		})
 		.then(function(json) {
-			console.log("Ors: Directions");
-
 			/*if(err)
 				future.throw(err);
 			else*/

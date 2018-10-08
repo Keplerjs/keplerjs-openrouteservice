@@ -1,13 +1,13 @@
 
 Kepler.Ors = {
 
-	_locs: [],
+	locs: new ReactiveVar([]),
 
 	routeByLocs: function(locs, cb) {
 
 		Meteor.call('findRouteByLocs', locs, function(err, data) {
 
-			K.Ors._locs = [];
+			K.Ors.locs.set([]);
 
 			if(err){
 				console.log('findRouteByLocs',err)

@@ -1,32 +1,29 @@
 
 Template.popupCursor_ors.events({
-	'click .btn-ors': function(e,tmpl) {
 
-		var icon$ = $(e.target).find('.icon');
-		$(e.target).addClass('disabled');
-		icon$.addClass('icon-loader');
+	'click .btn-directions': function(e, tmpl) {
 
-		if(K.Ors._locs.length < 2) {
-			K.Ors._locs.push(tmpl.data.loc.reverse());
+		var locs = K.Ors.locs.get(),
+			loc = tmpl.data.loc.reverse();
 
-			console.log('Ors locs', K.Ors._locs);
+		if(locs.length < 2) {
+
+			locs.push(loc);
+
+			K.Ors.locs.set(locs);
+			
+			K.Map.hideCursor();
 		}
 		
-
-		if(K.Ors._locs.length >= 2) {
+		if(locs.length >= 2) {
 		
-		    K.Ors.routeByLocs(K.Ors._locs, function() {
-
-				$(e.target).removeClass('disabled');
-				icon$.removeClass('icon-loader');
-
-			});
+		    K.Ors.routeByLocs(locs);
 		}
 	}
 });
 
-Template.popupGeojson_geoinfo.helpers({
-	fields: function() {
-		return Template.currentData().properties;
+Template.popupCursor_ors.helpers({
+	locs: function() {
+		return K.Ors.locs.get();
 	}
 });
