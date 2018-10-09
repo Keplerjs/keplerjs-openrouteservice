@@ -27,8 +27,8 @@ K.Plugin({
 					"cycling-mountain",
 					//"cycling-tour",
 					//"cycling-electric",
-					//"foot-walking",
-					"foot-hiking",
+					"foot-walking",
+					//"foot-hiking",
 					//"wheelchair"
 				]
 			}
