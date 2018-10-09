@@ -1,4 +1,8 @@
-
+/**
+ * definition of plugin openrouteservice
+ * @type {String}
+ * @description settings values https://openrouteservice.org/documentation/#/reference/directions/directions/directions-service
+ */
 K.Plugin({
 	name: 'openrouteservice',
 	templates: {
@@ -12,7 +16,6 @@ K.Plugin({
 		},
 		"public": {
 			"openrouteservice": {
-				//https://openrouteservice.org/documentation/#/reference/directions/directions/directions-service
 				"profile": "foot-walking",
 				"profiles": [
 					"driving-car",

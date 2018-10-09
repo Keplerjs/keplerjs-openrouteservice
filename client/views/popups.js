@@ -12,7 +12,9 @@ Template.popupCursor_ors.events({
 
 			K.Ors.locs.set(locs);
 			
-			K.Map.hideCursor();
+			//K.Map.hideCursor();
+
+			sAlert.info(i18n('error_ors_directions_to'));
 		}
 		
 		if(locs.length >= 2) {

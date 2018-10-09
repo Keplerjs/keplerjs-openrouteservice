@@ -27,6 +27,8 @@ Kepler.Ors = {
 
 	getDirections: function(locs, opts) {
 
+		//TODO caching using Util.roundLoc and opts.profile
+		
 		var future = new Future();
 
 		//DOCS https://jsapi.apiary.io/apis/openrouteservice/reference/directions/directions/directions-service.html
@@ -58,12 +60,11 @@ Meteor.methods({
 
 		if(!this.userId) return null;//TODO || !K.Util.valid.locs(loc)) return null;
 
-		console.log('Ors: findRouteByLocs...', locs);
+		console.log('Ors: findRouteByLocs', locs);
 
-		//TODO caching using Util.roundLoc
-		//
-		var userOpts = Users.findOne(this.userId, {fields: {'settings.ors': 1} }),
-			opts = _.defaults(userOpts.settings.ors, K.settings.public.openrouteservice);
+		var defsOpts = K.settings.public.openrouteservice,
+			userOpts = Users.findOne(this.userId, {fields: {'settings.ors': 1} }),
+			opts = userOpts.settings.ors ? _.defaults(userOpts.settings.ors, defsOpts) : defsOpts;
 
 		return K.Ors.getDirections(locs, opts);
 	}
