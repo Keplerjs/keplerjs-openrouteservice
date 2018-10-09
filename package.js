@@ -22,7 +22,7 @@ Package.onUse(function (api) {
 
   api.use([
     'keplerjs:core@1.3.7',
-    //'keplerjs:edit'
+    'keplerjs:geoinfo'
   ]);
 
   api.addFiles([

@@ -72,19 +72,19 @@ Kepler.Ors = {
 
 		var self = this;
 
-		Meteor.call('findRouteByLocs', self.locs.get(), function(err, data) {
+		Meteor.call('findRouteByLocs', self.locs.get(), function(err, feature) {
 
 			if(err) {
 				console.log('findRouteByLocs',err)
 			}
-			else if(data) {
+			else if(feature) {
 
-				//console.log('findRouteByLocs', data);
+				console.log('findRouteByLocs', feature);
+
+				if(Template['popupGeojson_tracks'])
+					feature.templatePopup = 'popupGeojson_tracks';
 			
-				var geojsonRoute = K.Ors.routeToGeojson({
-					type: "Feature",
-					geometry: data.routes[0].geometry
-				});
+				var geojsonRoute = K.Ors.routeToGeojson(feature);
 
 				//console.log('geojsonRoute',geojsonRoute)
 

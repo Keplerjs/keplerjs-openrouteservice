@@ -54,7 +54,6 @@ Kepler.Ors = {
 	}
 };
 
-
 Meteor.methods({
 	findRouteByLocs: function(locs) {
 
@@ -66,6 +65,16 @@ Meteor.methods({
 			userOpts = Users.findOne(this.userId, {fields: {'settings.ors': 1} }),
 			opts = userOpts.settings.ors ? _.defaults(userOpts.settings.ors, defsOpts) : defsOpts;
 
-		return K.Ors.getDirections(locs, opts);
+		var data = K.Ors.getDirections(locs, opts),
+			geom = data.routes[0].geometry;
+
+		var feature = {
+			type: "Feature",
+			geometry: geom
+		};
+
+		feature.properties = K.Geoinfo.getTrackInfo(feature);
+
+		return feature;
 	}
 });

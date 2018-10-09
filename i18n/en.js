@@ -1,6 +1,6 @@
 
 i18n.map('en', {
-	label_ors_profiles: "Directions profiles",
+	label_ors_profiles: "Directions profile",
 
 	btn_directions_from: "Directions from here...",
 	btn_directions_to: "Directions to here!",
