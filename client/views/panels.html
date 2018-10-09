@@ -1,0 +1,16 @@
+
+<template name="panelSettings_ors">
+	<div class="form-group">
+		<label for="ors_profile" class="col-xs-3 control-label">{{i18n 'label_ors_profiles'}}</label>
+		<div class="col-xs-9">
+			<div id="ors_profile" class="btn-group" data-toggle="buttons">
+			{{#each profiles}}
+				<label class="btn btn-xs btn-default {{#if active}} active {{/if}}">
+				<input name="ors_profile" type="radio" checked="{{active}}" value="{{val}}" class="form-control" />
+				{{name}}
+				</label>
+			{{/each}}
+			</div>
+		</div>
+	</div>
+</template>

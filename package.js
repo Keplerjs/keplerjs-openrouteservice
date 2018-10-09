@@ -32,6 +32,8 @@ Package.onUse(function (api) {
 
   api.addFiles([
     'client/Ors.js',
+    'client/views/panels.html',
+    'client/views/panels.js',
     'client/views/popups.html',
     'client/views/popups.js'
   ],'client');

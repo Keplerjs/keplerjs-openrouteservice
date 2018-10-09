@@ -20,23 +20,22 @@ Meteor.startup(function() {
 	K.Ors.directions = new Directions({
 		api_key: K.settings.openrouteservice.key
 	});
+
 });
 
 Kepler.Ors = {
 
-	getDirections: function(locs) {
+	getDirections: function(locs, opts) {
 
 		var future = new Future();
 
 		//DOCS https://jsapi.apiary.io/apis/openrouteservice/reference/directions/directions/directions-service.html
 		K.Ors.directions.calculate({
 			coordinates: locs,
-			profile: "foot-walking",
-			//driving-car , driving-hgv , cycling-regular , cycling-road , cycling-safe , cycling-mountain , cycling-tour , cycling-electric , foot-walking , foot-hiking , wheelchair
+			profile: opts.profile,
 			//extra_info: ["waytype", "steepness"],
-			//geometry_format: "encodedpolyline",
 			geometry_format: 'geojson',
-			format: "json",
+			format: 'json',
 			mime_type: "application/json"
 		})
 		.then(function(json) {
@@ -62,7 +61,10 @@ Meteor.methods({
 		console.log('Ors: findRouteByLocs...', locs);
 
 		//TODO caching using Util.roundLoc
+		//
+		var userOpts = Users.findOne(this.userId, {fields: {'settings.ors': 1} }),
+			opts = _.defaults(userOpts.settings.ors, K.settings.public.openrouteservice);
 
-		return K.Ors.getDirections(locs);
+		return K.Ors.getDirections(locs, opts);
 	}
 });
