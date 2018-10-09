@@ -1,39 +1,100 @@
 
 Kepler.Ors = {
 
+	track: K.Util.geo.createFeatureColl(),
+
+	style: { "color": "#0078cd", "weight": 12, "opacity": 0.6 },
+
+	styleJoin: { "color": "#0078cd", "weight": 12, "opacity": 0.4, "dashArray": "1,14" },
+
 	locs: new ReactiveVar([]),
 
-	routeByLocs: function(locs, cb) {
+	routeToGeojson: function(feature) {
 
-		Meteor.call('findRouteByLocs', locs, function(err, data) {
+		var self = this,
+			locs = self.locs.get();
 
-			K.Ors.locs.set([]);
+		var lineStart = K.Util.geo.createFeature('LineString', [
+			_.first(locs),
+			_.first(feature.geometry.coordinates)
+		]);
+		lineStart.style = self.styleJoin;
+
+		var lineEnd = K.Util.geo.createFeature('LineString', [
+			_.last(locs),
+			_.last(feature.geometry.coordinates)
+		]);
+		lineEnd.style = self.styleJoin;
+
+		var pointStart = K.Util.geo.createFeature('Point', _.first(locs));
+		var pointEnd = K.Util.geo.createFeature('Point', _.last(locs));
+
+		feature.style = self.style;
+
+		return K.Util.geo.createFeatureColl([
+			feature,
+			lineStart,
+			lineEnd,
+			pointStart,
+			pointEnd
+		]);
+	},
+
+	routeAddLoc: function(ll) {
+
+		var self = this,
+			maxLocs = 2,
+			loc = [ll[1], ll[0]],
+			locs = self.locs.get();
+
+		if(locs.length < maxLocs) {
+			locs.push(loc);
+		}
+		
+		var point = K.Util.geo.createFeature('Point', loc);
+
+		K.Map.addGeojson( K.Util.geo.createFeatureColl([point]), {noFitBounds:true});
+
+		if(locs.length >= maxLocs) {
+
+		    self.routeLoadTrack();
+		}
+
+		if(!self._alert)
+			self._alert = sAlert.info(i18n('error_ors_directions_to'));
+		else {
+			sAlert.close(self._alert);
+			self._alert = null;
+		}	
+	},
+
+	routeLoadTrack: function() {
+
+		var self = this;
+
+		Meteor.call('findRouteByLocs', self.locs.get(), function(err, data) {
 
 			if(err) {
 				console.log('findRouteByLocs',err)
 			}
 			else if(data) {
 
-				console.log('findRouteByLocs', data);
-				//var feature = K.Util.geo.createFeature('Point', [loc[1],loc[0]], data);
-				//feature.templateMarker = 'markerOrs';
-				//feature.templatePopup = 'popupGeojson_ors';
-				var feature = {
+				//console.log('findRouteByLocs', data);
+			
+				var geojsonRoute = K.Ors.routeToGeojson({
 					type: "Feature",
-					style: { "color": "#36f", "weight": 14, "opacity": 0.5 },
 					geometry: data.routes[0].geometry
-				};
+				});
 
-				var geojson = K.Util.geo.createFeatureColl([feature]);
+				//console.log('geojsonRoute',geojsonRoute)
 
 				K.Map.hideCursor();
-				K.Map.addGeojson(geojson);
+				K.Map.addGeojson(geojsonRoute);
 				/*, null, function() {
 					K.Map.layers.geojson.invoke('openPopup');
 				});*/
 
-				if(_.isFunction(cb)) 
-					cb(geojson);
+				self.locs.set([]);
 			}
 		});
 	},
