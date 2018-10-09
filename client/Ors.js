@@ -65,7 +65,7 @@ Kepler.Ors = {
 		else {
 			sAlert.close(self._alert);
 			self._alert = null;
-		}	
+		}
 	},
 
 	routeLoadTrack: function() {
@@ -79,7 +79,7 @@ Kepler.Ors = {
 			}
 			else if(feature) {
 
-				console.log('findRouteByLocs', feature);
+				//console.log('findRouteByLocs', feature);
 
 				if(Template['popupGeojson_tracks'])
 					feature.templatePopup = 'popupGeojson_tracks';

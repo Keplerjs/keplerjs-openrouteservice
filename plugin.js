@@ -22,13 +22,13 @@ K.Plugin({
 					"driving-car",
 					//"driving-hgv",
 					//"cycling-regular",
-					"cycling-road",
+					//"cycling-road",
 					//"cycling-safe",
-					//"cycling-mountain",
+					"cycling-mountain",
 					//"cycling-tour",
-					"cycling-electric",
-					"foot-walking",
-					//"foot-hiking",
+					//"cycling-electric",
+					//"foot-walking",
+					"foot-hiking",
 					//"wheelchair"
 				]
 			}
