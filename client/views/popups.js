@@ -1,6 +1,5 @@
 
 Template.popupCursor_ors.events({
-
 	'click .btn-directions': function(e, tmpl) {
 
 		K.Ors.routeAddLoc(tmpl.data.loc);
@@ -10,7 +9,7 @@ Template.popupCursor_ors.events({
 });
 
 Template.popupCursor_ors.helpers({
-	locs: function() {
-		return K.Ors.locs.get();
+	isFrom: function() {
+		return K.Ors.locs.get().length;
 	}
 });

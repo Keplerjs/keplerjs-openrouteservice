@@ -96,7 +96,7 @@ Kepler.Ors = {
 			
 				var geojsonRoute = K.Ors.routeToGeojson(feature);
 
-				console.log('geojsonRoute',geojsonRoute)
+				//console.log('geojsonRoute',geojsonRoute)
 
 				K.Map.hideCursor();
 				K.Map.addGeojson(geojsonRoute, null, function() {
