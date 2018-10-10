@@ -6,6 +6,7 @@
 K.Plugin({
 	name: 'openrouteservice',
 	templates: {
+		popupPlace: 'popupCursor_ors',
 		popupCursor: 'popupCursor_ors',
 		popupGeojson: 'popupGeojson_ors',
 		panelSettings: 'panelSettings_ors',
@@ -27,8 +28,8 @@ K.Plugin({
 					"cycling-mountain",
 					//"cycling-tour",
 					//"cycling-electric",
-					"foot-walking",
-					//"foot-hiking",
+					//"foot-walking",
+					"foot-hiking",
 					//"wheelchair"
 				]
 			}

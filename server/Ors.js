@@ -66,8 +66,9 @@ Meteor.methods({
 			opts = userOpts.settings.ors ? _.defaults(userOpts.settings.ors, defsOpts) : defsOpts;
 
 		var data = K.Ors.getDirections(locs, opts),
-			geom = data.routes[0].geometry,
-			sum  = data.routes[0].summary,
+			route = data.routes[0],
+			geom = route.geometry,
+			sum  = route.summary,
 			prop = sum ? {
 				len: sum.distance,
 				time: sum.duration
@@ -75,7 +76,7 @@ Meteor.methods({
 
 		var feature = {
 			type: "Feature",
-			properties: prop,
+			//properties: prop,
 			geometry: geom
 		};
 
