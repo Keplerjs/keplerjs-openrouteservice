@@ -28,7 +28,11 @@ Kepler.Ors = {
 
 		var pointStart = K.Util.geo.createFeature('Point', _.first(locs));
 		var pointEnd = K.Util.geo.createFeature('Point', _.last(locs));
-
+		pointStart.templateMarker = 'marker_ors_start';
+		pointEnd.templateMarker = 'marker_ors_end';
+		pointStart.classMarker = 'marker-blue';
+		pointEnd.classMarker = 'marker-blue';
+		
 		feature.style = self.style;
 
 		return K.Util.geo.createFeatureColl([
@@ -47,13 +51,19 @@ Kepler.Ors = {
 			loc = [ll[1], ll[0]],
 			locs = self.locs.get();
 
-		if(locs.length < maxLocs) {
-			locs.push(loc);
-		}
-		
 		var point = K.Util.geo.createFeature('Point', loc);
+		point.classMarker = 'marker-blue';
 
-		K.Map.addGeojson( K.Util.geo.createFeatureColl([point]), {noFitBounds:true});
+		if(locs.length < maxLocs)
+			locs.push(loc);	
+		
+		if(locs.length < maxLocs)
+			point.templateMarker = 'marker_ors_start';
+		else
+			point.templateMarker = 'marker_ors_end';
+		
+		
+		K.Map.addGeojson( K.Util.geo.createFeatureColl([point]), {clear:false, noFitBounds:true});
 
 		if(locs.length >= maxLocs) {
 
@@ -86,13 +96,12 @@ Kepler.Ors = {
 			
 				var geojsonRoute = K.Ors.routeToGeojson(feature);
 
-				//console.log('geojsonRoute',geojsonRoute)
+				console.log('geojsonRoute',geojsonRoute)
 
 				K.Map.hideCursor();
-				K.Map.addGeojson(geojsonRoute);
-				/*, null, function() {
+				K.Map.addGeojson(geojsonRoute, null, function() {
 					K.Map.layers.geojson.invoke('openPopup');
-				});*/
+				});//*/
 
 				self.locs.set([]);
 			}

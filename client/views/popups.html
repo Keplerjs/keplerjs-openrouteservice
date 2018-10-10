@@ -1,6 +1,25 @@
 
 <template name="popupCursor_ors">
 	<a class="btn-directions btn btn-sm btn-default btn-block" href="#">
-		<i class="icon icon-route"></i> {{#if locs.length}} {{i18n 'btn_directions_to'}} {{else}} {{i18n 'btn_directions_from'}} {{/if}} 
+		<i class="icon icon-route"></i> 
+		{{i18n 'btn_ors_directions'}} 
+		{{#if locs.length}} {{i18n 'btn_ors_to'}} {{else}} {{i18n 'btn_ors_from'}} {{/if}} 
 	</a>
 </template>
+
+
+<!-- TODO <template name="popupCursor_ors">
+	<div class="btn-group" data-toggle="buttons" role="group">
+		<div class="btn-group" role="group">
+			<a class="btn btn-default btn-block dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<i class="icon icon-route"></i> {{i18n 'btn_directions'}} 
+				<span class="caret"></span>
+			</a>
+			<ul class="dropdown-menu">
+				<li><a class="btn-directions-from" href="#">{{i18n 'btn_directions_from'}}</a></li>
+				<li><a class="btn-directions-to" href="#">{{i18n 'btn_directions_to'}}</a></li>
+			</ul>
+		</div>
+	</div>
+</template> -->
+
