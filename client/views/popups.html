@@ -1,9 +1,12 @@
 
 <template name="popupCursor_ors">
+	
 	<a class="btn-directions btn btn-sm btn-default btn-block" href="#">
 		<i class="icon icon-route"></i> 
+		<span>
 		{{i18n 'btn_ors_directions'}} 
-		{{#if isFrom}} {{i18n 'btn_ors_to'}} {{else}} {{i18n 'btn_ors_from'}} {{/if}} 
+		{{#if isFrom}} {{i18n 'btn_ors_to'}} {{else}} {{i18n 'btn_ors_from'}} {{/if}}
+		</span>
 	</a>
 
 <!--	TODO	<div class="btn-group btn-block" data-toggle="buttons" role="group">
@@ -20,4 +23,5 @@
 			</a></li>
 		</ul>
 	</div> -->
+	
 </template>

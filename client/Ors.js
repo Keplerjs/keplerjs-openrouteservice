@@ -76,6 +76,8 @@ Kepler.Ors = {
 			sAlert.close(self._alert);
 			self._alert = null;
 		}
+
+		return this;
 	},
 
 	routeLoadTrack: function() {
@@ -106,5 +108,7 @@ Kepler.Ors = {
 				self.locs.set([]);
 			}
 		});
+
+		return this;
 	},
 };

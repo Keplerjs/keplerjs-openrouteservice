@@ -6,9 +6,9 @@
 K.Plugin({
 	name: 'openrouteservice',
 	templates: {
+		popupUser: 'popupCursor_ors',
 		popupPlace: 'popupCursor_ors',
 		popupCursor: 'popupCursor_ors',
-		popupGeojson: 'popupGeojson_ors',
 		panelSettings: 'panelSettings_ors',
 	},
 	settings: {

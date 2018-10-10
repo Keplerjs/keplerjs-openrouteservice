@@ -1,10 +1,11 @@
 
 Template.popupCursor_ors.events({
 	'click .btn-directions': function(e, tmpl) {
-
+		console.log(tmpl.data)
 		K.Ors.routeAddLoc(tmpl.data.loc);
 		
 		K.Map.hideCursor();
+	
 	}
 });
 
