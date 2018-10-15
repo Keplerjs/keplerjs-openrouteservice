@@ -1,5 +1,5 @@
 Package.describe({
-  version: "1.3.7",
+  version: "1.4.0",
   name: "keplerjs:openrouteservice",
   summary: "Keplerjs Openrouteservice API",
   git: "https://github.com/Keplerjs/Kepler.git"
@@ -21,8 +21,8 @@ Package.onUse(function (api) {
   api.versionsFrom("1.5.1");
 
   api.use([
-    'keplerjs:core@1.3.7',
-    'keplerjs:geoinfo'
+    'keplerjs:core@1.4.0',
+    'keplerjs:geoinfo@1.4.0'
   ]);
 
   api.addFiles([
