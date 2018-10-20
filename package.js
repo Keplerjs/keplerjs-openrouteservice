@@ -1,5 +1,7 @@
+var version = '1.4.1';
+
 Package.describe({
-  version: "1.4.0",
+  version: version,
   name: "keplerjs:openrouteservice",
   summary: "Keplerjs Openrouteservice API",
   git: "https://github.com/Keplerjs/Kepler.git"
@@ -10,6 +12,10 @@ Npm.depends({
 });
 
 Package.onUse(function (api) {
+  api.use([
+    'keplerjs:core@'+version,
+    'keplerjs:geoinfo@'+version
+  ]);
 
   var globsync = function(e){
     var pkg = 'keplerjs-openrouteservice',
@@ -19,11 +25,6 @@ Package.onUse(function (api) {
   };
 
   api.versionsFrom("1.5.1");
-
-  api.use([
-    'keplerjs:core@1.4.0',
-    'keplerjs:geoinfo@1.4.0'
-  ]);
 
   api.addFiles([
     'plugin.js',
