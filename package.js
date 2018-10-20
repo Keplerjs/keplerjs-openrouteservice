@@ -1,4 +1,4 @@
-var version = '1.4.1';
+var version = '1.4.7';
 
 Package.describe({
   version: version,
@@ -16,13 +16,6 @@ Package.onUse(function (api) {
     'keplerjs:core@'+version,
     'keplerjs:geoinfo@'+version
   ]);
-
-  var globsync = function(e){
-    var pkg = 'keplerjs-openrouteservice',
-        path = Npm.require('path'),
-        glob = Npm.require('glob');
-    return glob.sync(e, {cwd: path.join(process.cwd(),'packages',pkg) });
-  };
 
   api.versionsFrom("1.5.1");
 
