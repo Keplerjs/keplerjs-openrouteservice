@@ -3,5 +3,5 @@ keplerjs plugin for OpenRouteService API
 
 https://openrouteservice.org/documentation/#
 
-client
-https://github.com/GIScience/openrouteservice-js
+## How it works
+![Rounting Demo](https://raw.githubusercontent.com/Keplerjs/keplerjs-openrouteservice/master/private/screenshots/routing.gif)
