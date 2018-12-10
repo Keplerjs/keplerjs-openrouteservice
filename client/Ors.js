@@ -62,8 +62,10 @@ Kepler.Ors = {
 		else
 			point.templateMarker = 'marker_ors_end';
 		
-		
-		K.Map.addGeojson( K.Util.geo.createFeatureColl([point]), {clear:false, noFitBounds:true});
+		K.Map.addGeojson(K.Util.geo.createFeatureColl([point]), {
+			clear: false, 
+			noFitBounds: true
+		});
 
 		if(locs.length >= maxLocs) {
 
@@ -101,7 +103,7 @@ Kepler.Ors = {
 				//console.log('geojsonRoute',geojsonRoute)
 
 				K.Map.hideCursor();
-				K.Map.addGeojson(geojsonRoute, null, function() {
+				K.Map.addGeojson(geojsonRoute, function() {
 					K.Map.layers.geojson.invoke('openPopup');
 				});//*/
 
