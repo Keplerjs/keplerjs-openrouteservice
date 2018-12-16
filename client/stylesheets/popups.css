@@ -1,8 +1,11 @@
 
 .popup-place .btn-directions {
     display: inline-block;
-    width: auto
+    width: auto;
+    margin-bottom: 0;
 }
+
+
 .popup-place .btn-directions span {
-	display: none
+    display: none
 }
