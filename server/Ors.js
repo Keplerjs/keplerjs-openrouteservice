@@ -47,7 +47,7 @@ Kepler.Ors = {
 				future.return(json);
 		})
 		.catch(function(err) {
-			console.log("Ors: getDirections Error", err);
+			console.warn("Ors: getDirections Error");
 		});
 
 		return future.wait();

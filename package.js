@@ -26,6 +26,7 @@ Package.onUse(function (api) {
 
   api.addFiles([
     'client/Ors.js',
+    'client/Pois.js',
     'client/views/markers.html',
     'client/views/panels.html',
     'client/views/panels.js',
