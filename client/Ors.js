@@ -54,8 +54,10 @@ Kepler.Ors = {
 		var point = K.Util.geo.createFeature('Point', loc);
 		point.classMarker = 'marker-blue';
 
-		if(locs.length < maxLocs)
+		if(locs.length < maxLocs){
 			locs.push(loc);	
+			//self.locs.set(locs);
+		}
 		
 		if(locs.length < maxLocs)
 			point.templateMarker = 'marker_ors_start';
@@ -84,9 +86,10 @@ Kepler.Ors = {
 
 	routeLoadTrack: function() {
 
-		var self = this;
+		var self = this,
+			locs = self.locs.get();
 
-		Meteor.call('findRouteByLocs', self.locs.get(), function(err, feature) {
+		Meteor.call('findRouteByLocs', locs, function(err, feature) {
 
 			if(err) {
 				console.log('findRouteByLocs',err)
@@ -100,10 +103,10 @@ Kepler.Ors = {
 			
 				var geojsonRoute = K.Ors.routeToGeojson(feature);
 
-				//console.log('geojsonRoute',geojsonRoute)
-
 				K.Map.hideCursor();
-				K.Map.addGeojson(geojsonRoute, function() {
+				K.Map.addGeojson(geojsonRoute, {
+					clear: false
+				}, function() {
 					K.Map.layers.geojson.invoke('openPopup');
 				});//*/
 

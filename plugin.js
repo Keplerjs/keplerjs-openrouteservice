@@ -20,7 +20,7 @@ K.Plugin({
 		"public": {
 			"openrouteservice": {
 				"poisRoutes": true,
-				"routeTrackinfo": false,
+				"routeTrackinfo": true,
 				"profile": "foot-walking",
 				"profiles": [
 					"driving-car",
