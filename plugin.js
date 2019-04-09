@@ -13,12 +13,14 @@ K.Plugin({
 	},
 	settings: {
 		"openrouteservice": {
+			"caching": true,	//cache response by ORS Api"
 			"name": "",
 			"key": ""
 		},
 		"public": {
 			"openrouteservice": {
-				"poisRoutes": false,
+				"poisRoutes": true,
+				"routeTrackinfo": false,
 				"profile": "foot-walking",
 				"profiles": [
 					"driving-car",

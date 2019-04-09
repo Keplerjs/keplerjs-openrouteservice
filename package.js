@@ -8,7 +8,7 @@ Package.describe({
 });
 
 Npm.depends({
-  "openrouteservice-js": "0.0.1",
+  "openrouteservice-js": "0.0.2",
 });
 
 Package.onUse(function (api) {
@@ -26,7 +26,7 @@ Package.onUse(function (api) {
 
   api.addFiles([
     'client/Ors.js',
-    'client/Pois.js',
+    'client/Place_pois.js',
     'client/views/markers.html',
     'client/views/panels.html',
     'client/views/panels.js',

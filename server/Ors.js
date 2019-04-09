@@ -30,25 +30,31 @@ Kepler.Ors = {
 		//TODO caching using Util.roundLoc and opts.profile
 		
 		var future = new Future();
-
-		//DOCS https://jsapi.apiary.io/apis/openrouteservice/reference/directions/directions/directions-service.html
-		K.Ors.directions.calculate({
-			coordinates: locs,
-			profile: opts.profile,
-			//extra_info: ["waytype", "steepness"],
-			geometry_format: 'geojson',
-			format: 'json',
-			mime_type: "application/json"
-		})
-		.then(function(json) {
-			/*if(err)
-				future.throw(err);
-			else*/
-				future.return(json);
-		})
-		.catch(function(err) {
-			console.warn("Ors: getDirections Error");
-		});
+		try {
+			//DOCS https://jsapi.apiary.io/apis/openrouteservice/reference/directions/directions/directions-service.html
+			K.Ors.directions.calculate({
+				coordinates: locs,
+				profile: opts.profile,
+				//extra_info: ["waytype", "steepness"],
+				geometry_format: 'geojson',
+				format: 'json',
+				mime_type: "application/json"
+			})
+			.then(function(json) {
+				/*if(err)
+					future.throw(err);
+				else*/
+					future.return(json);
+			})
+			.catch(function(err) {
+				console.warn("Ors: getDirections Error",err.message);
+				future.return(null);
+			});
+		}
+		catch(err) {
+			console.warn("Ors: getDirections Error",err.message);
+			future.return(null);
+		}
 
 		return future.wait();
 	}
@@ -59,14 +65,26 @@ Meteor.methods({
 
 		if(!this.userId) return null;//TODO || !K.Util.valid.locs(loc)) return null;
 
-		console.log('Ors: findRouteByLocs', locs);
+		locs = _.map(locs, function(l) {
+			return K.Util.geo.roundLoc(l,8);
+		});
 
 		var defsOpts = K.settings.public.openrouteservice,
 			userOpts = Users.findOne(this.userId, {fields: {'settings.ors': 1} }),
 			opts = userOpts.settings.ors ? _.defaults(userOpts.settings.ors, defsOpts) : defsOpts;
 
-		var data = K.Ors.getDirections(locs, opts),
-			route = data.routes[0],
+		var data;
+		if(K.settings.openrouteservice.caching)
+			data = K.Cache.get({locs: locs, opts: opts}, 'ors_routes', function(o) {
+				return K.Ors.getDirections(o.locs, o.opts);
+			});
+		else
+			data = K.Ors.getDirections(locs, opts);
+		
+		if(!data)
+			return null;
+
+		var	route = data.routes[0],
 			geom = route.geometry,
 			sum  = route.summary,
 			prop = sum ? {
@@ -80,7 +98,9 @@ Meteor.methods({
 			geometry: geom
 		};
 
-		feature.properties = K.Geoinfo.getTrackInfo(feature);
+		if(K.settings.public.openrouteservice.routeTrackinfo) {
+			feature.properties = K.Geoinfo.getTrackInfo(feature);
+		}
 
 		return feature;
 	}
