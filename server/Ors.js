@@ -75,7 +75,7 @@ Meteor.methods({
 
 		var data;
 		if(K.settings.openrouteservice.caching)
-			data = K.Cache.get({locs: locs, opts: opts}, 'ors_routes', function(o) {
+			data = K.Cache.get({locs: locs, opts: opts}, 'routes', function(o) {
 				return K.Ors.getDirections(o.locs, o.opts);
 			});
 		else
