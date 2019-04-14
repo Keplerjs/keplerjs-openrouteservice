@@ -91,12 +91,11 @@ Kepler.Ors = {
 
 		Meteor.call('findRouteByLocs', locs, function(err, feature) {
 
-			if(err) {
-				console.log('findRouteByLocs',err)
+			if(err || !feature) {
+				K.Map.cleanGeojson();
+				self.locs.set([]);	
 			}
 			else if(feature) {
-
-				//console.log('findRouteByLocs', feature);
 
 				if(Template['popupGeojson_tracks'])
 					feature.templatePopup = 'popupGeojson_tracks';
