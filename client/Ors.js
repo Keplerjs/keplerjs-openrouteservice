@@ -1,7 +1,7 @@
 
 Kepler.Ors = {
 
-	track: K.Util.geo.createFeatureColl(),
+	track: K.Util.geo.featureColl(),
 
 	style: { "color": "#0078cd", "weight": 12, "opacity": 0.6 },
 
@@ -14,20 +14,20 @@ Kepler.Ors = {
 		var self = this,
 			locs = self.locs.get();
 
-		var lineStart = K.Util.geo.createFeature('LineString', [
+		var lineStart = K.Util.geo.feature('LineString', [
 			_.first(locs),
 			_.first(feature.geometry.coordinates)
 		]);
 		lineStart.style = self.styleJoin;
 
-		var lineEnd = K.Util.geo.createFeature('LineString', [
+		var lineEnd = K.Util.geo.feature('LineString', [
 			_.last(locs),
 			_.last(feature.geometry.coordinates)
 		]);
 		lineEnd.style = self.styleJoin;
 
-		var pointStart = K.Util.geo.createFeature('Point', _.first(locs));
-		var pointEnd = K.Util.geo.createFeature('Point', _.last(locs));
+		var pointStart = K.Util.geo.feature('Point', _.first(locs));
+		var pointEnd = K.Util.geo.feature('Point', _.last(locs));
 		pointStart.templateMarker = 'marker_ors_start';
 		pointEnd.templateMarker = 'marker_ors_end';
 		pointStart.classMarker = 'marker-blue';
@@ -35,7 +35,7 @@ Kepler.Ors = {
 		
 		feature.style = self.style;
 
-		return K.Util.geo.createFeatureColl([
+		return K.Util.geo.featureColl([
 			feature,
 			lineStart,
 			lineEnd,
@@ -51,7 +51,7 @@ Kepler.Ors = {
 			loc = [ll[1], ll[0]],
 			locs = self.locs.get();
 
-		var point = K.Util.geo.createFeature('Point', loc);
+		var point = K.Util.geo.feature('Point', loc);
 		point.classMarker = 'marker-blue';
 
 		if(locs.length < maxLocs){
@@ -64,7 +64,7 @@ Kepler.Ors = {
 		else
 			point.templateMarker = 'marker_ors_end';
 		
-		K.Map.addGeojson(K.Util.geo.createFeatureColl([point]), {
+		K.Map.addGeojson(K.Util.geo.featureColl([point]), {
 			clear: false, 
 			noFitBounds: true
 		});

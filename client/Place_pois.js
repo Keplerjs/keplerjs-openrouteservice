@@ -22,7 +22,7 @@ Kepler.Place.include({
 					//if(Template['popupGeojson_tracks'])
 					//	feature.templatePopup = 'popupGeojson_tracks';
 
-					var routeGeojson =  K.Util.geo.createFeatureColl([
+					var routeGeojson =  K.Util.geo.featureColl([
 						feature
 					]);
 
