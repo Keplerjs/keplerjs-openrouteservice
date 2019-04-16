@@ -1,58 +1,48 @@
 
 var Future = Npm.require('fibers/future');
-//require = Npm.require;
-//Openrouteservicejs = Npm.require('openrouteservice-js');
-
-//PATCH for https://github.com/GIScience/openrouteservice-js/issues/4
-var baseDir = 'openrouteservice-js/src/';
-//var Util = Npm.require(baseDir+'OrsUtil');
-//var Pois = Npm.require(baseDir+'OrsPois');
-//var Input = Npm.require(baseDir+'OrsInput');
-//var Matrix = Npm.require(baseDir+'OrsMatrix');
-//var Geocoding = Npm.require(baseDir+'OrsGeocode');
-//var Isochrones = Npm.require(baseDir+'OrsIsochrones');
-var Directions = Npm.require(baseDir+'OrsDirections');
-//TODO Npm.require(baseDir+'main-template');
-//
+var Ors = Npm.require('openrouteservice-js');
 
 Meteor.startup(function() {
 
-	K.Ors.directions = new Directions({
-		api_key: K.settings.openrouteservice.key
-	});
+	if(Ors.Directions) {
+		K.Ors.directions = new Ors.Directions({
+			api_key: K.settings.openrouteservice.key
+		});
+	}
 
 });
 
 Kepler.Ors = {
 
+	directions: null,
+
 	getDirections: function(locs, opts) {
 
 		//TODO caching using Util.roundLoc and opts.profile
-		
+		//console.log('getDirections...............',opts)
 		var future = new Future();
 		try {
 			//DOCS https://jsapi.apiary.io/apis/openrouteservice/reference/directions/directions/directions-service.html
 			K.Ors.directions.calculate({
+				//api_key: K.settings.openrouteservice.key,
+				//host:'http://localhost:9090',
+				instructions: false,
 				coordinates: locs,
 				profile: opts.profile,
+				format: 'geojson',
 				//extra_info: ["waytype", "steepness"],
-				geometry_format: 'geojson',
-				format: 'json',
-				mime_type: "application/json"
+				mime_type: "application/geo+json"
 			})
 			.then(function(json) {
-				/*if(err)
-					future.throw(err);
-				else*/
-					future.return(json);
+				future.return(json);
 			})
 			.catch(function(err) {
-				console.warn("Ors: getDirections Error",err.message);
+				console.warn("Ors: getDirections Error");
 				future.return(null);
 			});
 		}
 		catch(err) {
-			console.warn("Ors: getDirections Error",err.message);
+			console.warn("Ors: getDirections Error");
 			future.return(null);
 		}
 
@@ -74,29 +64,18 @@ Meteor.methods({
 			opts = userOpts.settings.ors ? _.defaults(userOpts.settings.ors, defsOpts) : defsOpts;
 
 		var data;
-		if(K.settings.openrouteservice.caching)
+
+		if(K.settings.openrouteservice.cacheTime)
 			data = K.Cache.get({locs: locs, opts: opts}, 'routes', function(o) {
 				return K.Ors.getDirections(o.locs, o.opts);
-			});
+			}, K.settings.openrouteservice.cacheTime);
 		else
 			data = K.Ors.getDirections(locs, opts);
-		
-		if(!data)
+
+		if(!data || !data.features)
 			return null;
 
-		var	route = data.routes[0],
-			geom = route.geometry,
-			sum  = route.summary,
-			prop = sum ? {
-				len: sum.distance,
-				time: sum.duration
-			} : {};
-
-		var feature = {
-			type: "Feature",
-			//properties: prop,
-			geometry: geom
-		};
+		var	feature = data.features[0];
 
 		if(K.settings.public.openrouteservice.routeTrackinfo) {
 			feature.properties = K.Geoinfo.getTrackInfo(feature);

@@ -13,15 +13,16 @@ K.Plugin({
 	},
 	settings: {
 		"openrouteservice": {
-			"caching": true,	//cache response by ORS Api"
+			"caching": false,	//cache response by ORS Api"
 			"name": "",
 			"key": ""
 		},
 		"public": {
 			"openrouteservice": {
+				"cacheTime": "daily",
 				"poisRoutes": true,
 				"routeTrackinfo": true,
-				"profile": "foot-walking",
+				"profile": "foot-hiking",
 				"profiles": [
 					"driving-car",
 					//"driving-hgv",
@@ -31,7 +32,6 @@ K.Plugin({
 					"cycling-mountain",
 					//"cycling-tour",
 					//"cycling-electric",
-					//"foot-walking",
 					"foot-hiking",
 					//"wheelchair"
 				]
