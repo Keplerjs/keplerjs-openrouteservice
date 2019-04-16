@@ -1,21 +1,5 @@
 
 var Future = Npm.require('fibers/future');
-//require = Npm.require;
-//Openrouteservicejs = Npm.require('openrouteservice-js');
-
-//PATCH for https://github.com/GIScience/openrouteservice-js/issues/4
-var baseDir = 'openrouteservice-js/src/';
-//var Util = Npm.require(baseDir+'OrsUtil');
-//var Pois = Npm.require(baseDir+'OrsPois');
-//var Input = Npm.require(baseDir+'OrsInput');
-//var Matrix = Npm.require(baseDir+'OrsMatrix');
-//var Geocoding = Npm.require(baseDir+'OrsGeocode');
-//var Isochrones = Npm.require(baseDir+'OrsIsochrones');
-
-//var Directions = Npm.require(baseDir+'OrsDirections');
-
-//TODO Npm.require(baseDir+'main-template');
-//
 var Ors = Npm.require('openrouteservice-js');
 
 Meteor.startup(function() {
@@ -53,12 +37,12 @@ Kepler.Ors = {
 				future.return(json);
 			})
 			.catch(function(err) {
-				console.warn("Ors: getDirections Error",err);
+				console.warn("Ors: getDirections Error");
 				future.return(null);
 			});
 		}
 		catch(err) {
-			console.warn("Ors: getDirections Error",err.message);
+			console.warn("Ors: getDirections Error");
 			future.return(null);
 		}
 
@@ -81,10 +65,10 @@ Meteor.methods({
 
 		var data;
 
-		if(K.settings.openrouteservice.caching)
+		if(K.settings.openrouteservice.cacheTime)
 			data = K.Cache.get({locs: locs, opts: opts}, 'routes', function(o) {
 				return K.Ors.getDirections(o.locs, o.opts);
-			});
+			}, K.settings.openrouteservice.cacheTime);
 		else
 			data = K.Ors.getDirections(locs, opts);
 
@@ -96,9 +80,6 @@ Meteor.methods({
 		if(K.settings.public.openrouteservice.routeTrackinfo) {
 			feature.properties = K.Geoinfo.getTrackInfo(feature);
 		}
-
-		console.log(feature.properties)
-
 
 		return feature;
 	}

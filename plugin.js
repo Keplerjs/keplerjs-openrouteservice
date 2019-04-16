@@ -19,6 +19,7 @@ K.Plugin({
 		},
 		"public": {
 			"openrouteservice": {
+				"cacheTime": "daily",
 				"poisRoutes": true,
 				"routeTrackinfo": true,
 				"profile": "foot-hiking",
