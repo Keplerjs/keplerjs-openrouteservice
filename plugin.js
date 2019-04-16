@@ -13,13 +13,12 @@ K.Plugin({
 	},
 	settings: {
 		"openrouteservice": {
-			"caching": false,	//cache response by ORS Api"
+			"cacheTime": "daily",	//cache response by ORS Api"
 			"name": "",
 			"key": ""
 		},
 		"public": {
 			"openrouteservice": {
-				"cacheTime": "daily",
 				"poisRoutes": true,
 				"routeTrackinfo": true,
 				"profile": "foot-hiking",
