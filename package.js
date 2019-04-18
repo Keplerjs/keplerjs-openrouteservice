@@ -8,7 +8,7 @@ Package.describe({
 });
 
 Npm.depends({
-  "openrouteservice-js": "0.1.0",
+  "openrouteservice-js": "0.1.1",
 });
 
 Package.onUse(function (api) {
