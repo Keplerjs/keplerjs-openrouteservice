@@ -75,9 +75,9 @@ Kepler.Ors = {
 		}
 
 		if(!self._alert)
-			self._alert = sAlert.info(i18n('error_ors_directions_to'));
+			self._alert = K.Alert.info(i18n('error_ors_directions_to'));
 		else {
-			sAlert.close(self._alert);
+			K.Alert.close(self._alert);
 			self._alert = null;
 		}
 
