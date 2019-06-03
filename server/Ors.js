@@ -55,7 +55,7 @@ Meteor.methods({
 		if(!this.userId) return null;//TODO || !K.Util.valid.locs(loc)) return null;
 
 		locs = _.map(locs, function(l) {
-			return K.Util.geo.roundLoc(l,8);
+			return K.Util.geo.locRound(l,8);
 		});
 
 		var defsOpts = K.settings.public.openrouteservice,
