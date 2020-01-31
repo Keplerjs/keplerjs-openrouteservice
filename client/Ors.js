@@ -105,8 +105,6 @@ Kepler.Ors = {
 				K.Map.hideCursor();
 				K.Map.addGeojson(geojsonRoute, {
 					clear: false
-				}, function() {
-					K.Map.layers.geojson.invoke('openPopup');
 				});//*/
 
 				self.locs.set([]);

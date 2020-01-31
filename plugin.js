@@ -21,7 +21,7 @@ K.Plugin({
 			"openrouteservice": {
 				"poisRoutes": true,
 				"routeTrackinfo": true,
-				"profile": "foot-hiking",
+				"profile": "foot-walking",
 				"profiles": [
 					"driving-car",
 					//"driving-hgv",
@@ -31,7 +31,8 @@ K.Plugin({
 					"cycling-mountain",
 					//"cycling-tour",
 					//"cycling-electric",
-					"foot-hiking",
+					"foot-walking"
+					//"foot-hiking",
 					//"wheelchair"
 				]
 			}

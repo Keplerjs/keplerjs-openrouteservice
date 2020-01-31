@@ -9,7 +9,6 @@ Meteor.startup(function() {
 			api_key: K.settings.openrouteservice.key
 		});
 	}
-
 });
 
 Kepler.Ors = {
@@ -23,16 +22,20 @@ Kepler.Ors = {
 		try {
 			//DOCS https://jsapi.apiary.io/apis/openrouteservice/reference/directions/directions/directions-service.html
 			K.Ors.directions.calculate({
-				//api_key: K.settings.openrouteservice.key,
-				//host:'http://localhost:9090',
+				host: K.settings.openrouteservice.host || undefined,
 				instructions: false,
 				coordinates: locs,
+				//profile: "driving-car",
+				//profile: "foot-walking",
 				profile: opts.profile,
 				format: 'geojson',
 				//extra_info: ["waytype", "steepness"],
 				mime_type: "application/geo+json"
 			})
 			.then(function(json) {
+				
+				//console.log('RESPONSe getDirections', json);
+
 				future.return(json);
 			})
 			.catch(function(err) {
