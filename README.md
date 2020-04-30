@@ -1,5 +1,5 @@
 # keplerjs-openrouteservice
-keplerjs plugin for OpenRouteService API
+keplerjs plugin for OpenRouteService API. Add Routing features in keplerjs UI
 
 https://openrouteservice.org/documentation/#
 
